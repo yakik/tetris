@@ -3,46 +3,28 @@
 
 <head>
   <meta charset=utf-8 />
-  <title>Draw a line</title>
+  <title>Tetris!</title>
 </head>
 
 <body>
-  <canvas id="ticTacToe" width="500" height="500" style="border:1px solid #000000;"></canvas>
-  <script src="javascripts/drawing.js" type="text/javascript"></script>
-  <script src="javascripts/items.js" type="text/javascript"></script>
-  <script>
-    var canvas = document.getElementById('ticTacToe')
-    var items = [{ x: 0, y: 0 }]
-    resizeCanvasAccordingToWindowSize(canvas)
-    if (canvas.getContext) {
-      drawBoard(canvas.getContext('2d'))
-      drawItem(canvas.getContext('2d'), items[0])
-      var ctx = canvas.getContext('2d');
-
-      window.onkeypress = function () {
-        items[0].x += 1
-        drawBoard(canvas.getContext('2d'))
-        drawItem(canvas.getContext('2d'), items[0])
-      }
-
-      window.onresize = function (event) {
-        resizeCanvasAccordingToWindowSize(canvas)
-        drawBoard(canvas.getContext('2d'))
-        drawItem(canvas.getContext('2d'), items[0])
-      };
-
-      window.addEventListener("click", function (event) {
-        if (canvas.style.visibility == 'visible') {
-          canvas.style.visibility = 'hidden';
-        } else {
-          canvas.style.visibility = 'visible';
-        }
-      });
-      // drawing code here 
+  <script type="module">
+    import { boardMethods } from "./javascripts/boardMethods.js"
+    const boardInfo = {
+     width : 400,
+     height : 500,
+     rows : 20,
+     columns : 16
     }
-    else {
-      // canvas-unsupported code here
-    }
+    var canvas = document.createElement("canvas");
+    document.getElementsByTagName('body')[0].appendChild(canvas);
+    canvas.width = boardInfo.width;
+    canvas.height = boardInfo.height
+    var ctx = canvas.getContext('2d')
+
+    boardMethods.draw(ctx, boardInfo)
+
+
+
 
   </script>
 </body>
