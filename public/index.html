@@ -8,24 +8,8 @@
 
 <body>
   <script type="module">
-    import { boardMethods } from "./javascripts/boardMethods.js"
-    const boardInfo = {
-     width : 400,
-     height : 500,
-     rows : 20,
-     columns : 16
-    }
-    var canvas = document.createElement("canvas");
-    document.getElementsByTagName('body')[0].appendChild(canvas);
-    canvas.width = boardInfo.width;
-    canvas.height = boardInfo.height
-    var ctx = canvas.getContext('2d')
-
-    boardMethods.draw(ctx, boardInfo)
-
-
-
-
+    import {tetris } from "./javascripts/tetris.js"
+    tetris.run(document)
   </script>
 </body>
 
