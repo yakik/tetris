@@ -1,2 +1,4 @@
 node_modules
-
+.gitIgnore~
+.vscode
+..gitIgnore.un~
