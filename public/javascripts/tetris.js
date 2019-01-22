@@ -1,4 +1,4 @@
-import { boardMethods } from "./boardMethods.js"
+import { drawBoard } from "./boardDrawer.js"
 export var tetris = {
     run : function (document) {
         
@@ -15,7 +15,7 @@ export var tetris = {
         canvas.height = board.height
         var ctx = canvas.getContext('2d')
 
-        boardMethods.draw(ctx, board)
+        drawBoard(ctx, board)
 
          
     }
