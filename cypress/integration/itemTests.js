@@ -23,7 +23,7 @@ describe('board tests', function () {
       expect(newBoard[1][2]).to.eq(0)
     })
   
-    it('knows to check whether item can be placed on board', function() {
+    it('knows to check whether item can be placed on board (can)', function() {
       var squareItem = getNewItem('Square')
   
       var board = getNewBoard(3,3)
@@ -31,6 +31,52 @@ describe('board tests', function () {
       
       
       expect(canItemBePlacedOnBoard(board,getCoordinatesWithOffset(squareItem, itemLocationOnBoard))).to.be.true
+    })
+  
+    it('knows to check whether item can be placed on board (cannot due to obstruction)', function() {
+      var squareItem = getNewItem('Square')
+  
+      var board = getNewBoard(3,3)
+      var itemLocationOnBoard = { x: 0, y: 0 }
+      board[1][1] = 1
+      
+      expect(canItemBePlacedOnBoard(board,getCoordinatesWithOffset(squareItem, itemLocationOnBoard))).to.be.false
+    })
+  
+    it('checks whether item in board limit (big x)', function() {
+      var squareItem = getNewItem('Square')
+  
+      var board = getNewBoard(3,3)
+      var itemLocationOnBoard = { x: 2, y: 0 }
+      debugger
+      expect(canItemBePlacedOnBoard(board,getCoordinatesWithOffset(squareItem, itemLocationOnBoard))).to.be.false
+    })
+  
+    it('checks whether item in board limit (small x)', function() {
+      var squareItem = getNewItem('Square')
+  
+      var board = getNewBoard(3,3)
+      var itemLocationOnBoard = { x: -1, y: 0 }
+      debugger
+      expect(canItemBePlacedOnBoard(board,getCoordinatesWithOffset(squareItem, itemLocationOnBoard))).to.be.false
+    })
+  
+    it('checks whether item in board limit (small y', function() {
+      var squareItem = getNewItem('Square')
+  
+      var board = getNewBoard(3,3)
+      var itemLocationOnBoard = { x: 0, y: -1 }
+      debugger
+      expect(canItemBePlacedOnBoard(board,getCoordinatesWithOffset(squareItem, itemLocationOnBoard))).to.be.false
+    })
+  
+    it('checks whether item in board limit (big x)', function() {
+      var squareItem = getNewItem('Square')
+  
+      var board = getNewBoard(3,3)
+      var itemLocationOnBoard = { x: 0, y: 2 }
+      debugger
+      expect(canItemBePlacedOnBoard(board,getCoordinatesWithOffset(squareItem, itemLocationOnBoard))).to.be.false
     })
   
   })
