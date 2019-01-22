@@ -1,0 +1,34 @@
+export function canItemBePlacedOnBoard(board, itemCoordinates) {
+    itemCoordinates.forEach(coordinate => {
+        if (board[coordinate.x][coordinate.y] != 0)
+            return false
+    })
+    return true
+}
+
+
+export function getBoardWithItem(board, itemCoordinates, itemKey) {
+    var newBoard = duplicateBoard(board);
+   
+    itemCoordinates.forEach(coordinate => {
+        newBoard[coordinate.x][coordinate.y] = itemKey
+    });
+    return newBoard
+  }
+  
+function duplicateBoard(board) {
+    var newBoard = new Array(board.length);
+    for (var i = 0; i < newBoard.length; i++)
+        newBoard[i] = board[i].slice();
+    return newBoard;
+}
+
+  export function getNewBoard(width,height) {
+    var board = new Array(width);
+    for (var i = 0; i < width; i++)
+      board[i] = new Array(height);
+    for (var i = 0; i < width; i++)
+      for (var j = 0; j < height; j++)
+        board[i][j] = 0;
+    return board
+  }
