@@ -1,6 +1,6 @@
-import { getNewBoard, getBoardWithItem, canItemBePlacedOnBoard, getBoardAfterItemRemoved } from "./board.js"
-import { drawGame, drawBoardGrid, drawBoardCells } from "./boardDrawer.js"
-import { getNewItem, getCoordinatesWithOffset } from "./item.js"
+import { getNewBoard, getBoardWithItem, isAllowedToMove, moveItemOnBoard} from "./board.js"
+import { drawGame } from "./boardDrawer.js"
+import { getNewItem } from "./item.js"
 
 const boardRows = 20
 const boardColumns = 16
@@ -14,9 +14,8 @@ setCanvasSize(canvas, boardWidth, boardHeight);
 var ctx = canvas.getContext('2d')
 
 var squareItem = getNewItem('Square')
-var board = getNewBoard(boardRows, boardColumns);
-var itemLocationOnBoard = { x: 5, y: 0 };
-board = getBoardWithItem(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard), squareItem.key)
+var board = getNewBoard(boardColumns,boardRows);
+board = getBoardWithItem(board,squareItem,{ col: 5, row: 0 })
 
 var nextTimedEvent
 
@@ -28,34 +27,26 @@ export function tetris(document) {
 
 function keyWasPressed(e) {
     if (String.fromCharCode(e.keyCode) == 'j') {
-        board = getBoardAfterItemRemoved(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard))
-        itemLocationOnBoard.x -= 1
-        if (canItemBePlacedOnBoard(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard))) {
-            board = getBoardWithItem(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard), squareItem.key)
+        if (isAllowedToMove(board, { col: -1, row: 0 })){
+            board = moveItemOnBoard(board, { col: -1, row: 0 })
             redraw()
         }
-        else
-        itemLocationOnBoard.x += 1
     }
     if (String.fromCharCode(e.keyCode) == 'k') {
-        board = getBoardAfterItemRemoved(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard))
-        itemLocationOnBoard.x+= 1
-        if (canItemBePlacedOnBoard(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard))) {
-            board = getBoardWithItem(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard), squareItem.key)
+        if (isAllowedToMove(board, { col: +1, row: 0 })){
+            board = moveItemOnBoard(board, { col: +1, row: 0 })
             redraw()
         }
-        else
-        itemLocationOnBoard.x -= 1
     }
    
 }
 
 function moveDownOneAfterInterval() {
-    board = getBoardAfterItemRemoved(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard))
-    itemLocationOnBoard.y += 1
-    board = getBoardWithItem(board, getCoordinatesWithOffset(squareItem, itemLocationOnBoard), squareItem.key)
-    redraw()
-    nextTimedEvent = setTimeout(moveDownOneAfterInterval,500)
+    if (isAllowedToMove(board, { col: 0, row: 1 })) {
+        board = moveItemOnBoard(board, { col: 0, row: 1 })
+        redraw()
+        nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
+    }
 }
 
 function redraw() {

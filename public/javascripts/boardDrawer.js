@@ -41,7 +41,7 @@ export function drawBoardCells(ctx, boardRows, boardColumns, boardHeight, boardW
     const cellWidth = getCellWidth(boardWidth, boardColumns)
     const cellHeight = getCellHeight(boardHeight, boardRows)
     
-    board.forEach(function (column, columnIndex) {
+    board.grid.forEach(function (column, columnIndex) {
         column.forEach(function (cell, rowIndex) {
             if (cell != 0)
                 drawCell(ctx, cellWidth, cellHeight, rowIndex, columnIndex)
