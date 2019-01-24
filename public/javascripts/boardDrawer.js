@@ -1,3 +1,4 @@
+import { getCellValue} from "./board.js"
 
 export function drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board) {
 
@@ -40,19 +41,18 @@ function getCellWidth(boardWidth, boardColumns) {
 export function drawBoardCells(ctx, boardRows, boardColumns, boardHeight, boardWidth, board) {
     const cellWidth = getCellWidth(boardWidth, boardColumns)
     const cellHeight = getCellHeight(boardHeight, boardRows)
-    
-    board.grid.forEach(function (column, columnIndex) {
-        column.forEach(function (cell, rowIndex) {
-            if (cell != 0)
-                drawCell(ctx, cellWidth, cellHeight, rowIndex, columnIndex)
-        })
-    })
+
+    for (var col = 0; col < boardColumns; col++)
+        for (var row = 0; row < boardRows; row++)
+            if (getCellValue(board,{col:col,row:row}) != 0)
+                drawCell(ctx, cellWidth, cellHeight, col, row)
+    drawCell(ctx, cellWidth, cellHeight, col, row)
 }
 
-function drawCell(ctx, cellWidth, cellHeight, rowIndex, columnIndex) {
+function drawCell(ctx, cellWidth, cellHeight, columnIndex, rowIndex) {
 
     ctx.fillRect(cellWidth * columnIndex, cellHeight * rowIndex,
-        cellWidth , cellHeight)
+        cellWidth, cellHeight)
 }
 
 
