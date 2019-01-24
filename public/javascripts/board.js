@@ -1,12 +1,17 @@
-export function canItemBePlacedOnBoard(board, itemCoordinates) {
-    if (!isItemCoordinatesWithinBoardLimits(board, itemCoordinates))
+
+import { getCoordinatesWithOffset } from "./item.js"
+
+export function canItemBePlacedOnBoard(board, item, itemLocationOnBoard) {
+    if (!isItemWithinBoardLimits(board,  item, itemLocationOnBoard))
         return false
     else
-        return isItemCoordinatesVacant(board, itemCoordinates);
+        return isItemCoordinatesVacant(board,  item, itemLocationOnBoard);
 
 }
 
-function isItemCoordinatesWithinBoardLimits(board, itemCoordinates) {
+function isItemWithinBoardLimits(board, item, itemLocationOnBoard) {
+    var itemCoordinates = getCoordinatesWithOffset(item, itemLocationOnBoard)
+    
     var returnValue = true;
     itemCoordinates.forEach(coordinate => {
         if (coordinate.col < 0 || coordinate.row < 0 ||
@@ -17,7 +22,8 @@ function isItemCoordinatesWithinBoardLimits(board, itemCoordinates) {
 }
 
 
-function isItemCoordinatesVacant(board, itemCoordinates) {
+function isItemCoordinatesVacant(board, item, itemLocationOnBoard) {
+    var itemCoordinates = getCoordinatesWithOffset(item, itemLocationOnBoard)
     var returnValue = true;
     itemCoordinates.forEach(coordinate => {
         if (getCellValue(board,coordinate) != 0)
@@ -26,24 +32,17 @@ function isItemCoordinatesVacant(board, itemCoordinates) {
     return returnValue;
 }
 
-export function getBoardWithItem(board, itemCoordinates, itemKey) {
+export function getBoardWithItem(board, item, itemLocationOnBoard) {
+    var itemCoordinates = getCoordinatesWithOffset(item, itemLocationOnBoard)
     var newBoard = duplicateBoard(board);
-
+    newBoard.item = item
+    newBoard.itemLocationOnBoard = itemLocationOnBoard
     itemCoordinates.forEach(coordinate => {
-        setCellValue(newBoard,coordinate,itemKey)
+        setCellValue(newBoard,coordinate,item.key)
     });
     return newBoard
 }
 
-
-export function getBoardAfterItemRemoved(board, itemCoordinates, itemKey) {
-    var newBoard = duplicateBoard(board);
-
-    itemCoordinates.forEach(coordinate => {
-        setCellValue(newBoard,coordinate,0)
-    })
-    return newBoard
-}
 
 function duplicateBoard(board) {
     var newBoard = getNewBoard(board.cols, board.rows)
