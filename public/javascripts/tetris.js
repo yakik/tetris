@@ -1,4 +1,4 @@
-import { getNewBoard, getBoardWithItem, isAllowedToMove, moveItemOnBoard} from "./board.js"
+import { getNewBoard, getBoardWithItem, isAllowedToMove, moveItemOnBoard } from "./board.js"
 import { drawGame } from "./boardDrawer.js"
 import { getNewItem } from "./item.js"
 
@@ -14,39 +14,42 @@ setCanvasSize(canvas, boardWidth, boardHeight);
 var ctx = canvas.getContext('2d')
 
 var squareItem = getNewItem('Square')
-var board = getNewBoard(boardColumns,boardRows);
-board = getBoardWithItem(board,squareItem,{ col: 5, row: 0 })
+var board = getNewBoard(boardColumns, boardRows);
+board = getBoardWithItem(board, squareItem, { col: 5, row: 0 })
 
 var nextTimedEvent
 
 export function tetris(document) {
     drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board);
     window.onkeypress = keyWasPressed
-    nextTimedEvent =  setTimeout(moveDownOneAfterInterval, 500)
+    nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
 }
 
 function keyWasPressed(e) {
     if (String.fromCharCode(e.keyCode) == 'j') {
-        if (isAllowedToMove(board, { col: -1, row: 0 })){
+        if (isAllowedToMove(board, { col: -1, row: 0 })) {
             board = moveItemOnBoard(board, { col: -1, row: 0 })
             redraw()
         }
     }
     if (String.fromCharCode(e.keyCode) == 'k') {
-        if (isAllowedToMove(board, { col: +1, row: 0 })){
+        if (isAllowedToMove(board, { col: +1, row: 0 })) {
             board = moveItemOnBoard(board, { col: +1, row: 0 })
             redraw()
         }
     }
-   
+
 }
 
 function moveDownOneAfterInterval() {
     if (isAllowedToMove(board, { col: 0, row: 1 })) {
         board = moveItemOnBoard(board, { col: 0, row: 1 })
         redraw()
-        nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
+
     }
+    else
+        board = getBoardWithItem(board, squareItem, { col: 5, row: 0 })
+    nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
 }
 
 function redraw() {
