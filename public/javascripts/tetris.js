@@ -19,13 +19,35 @@ board = getBoardWithItem(board, squareItem, { col: 5, row: 0 })
 
 var nextTimedEvent
 
+drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board)
+
 export function tetris(document) {
-    drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board);
+    
     window.onkeypress = keyWasPressed
     nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
+    document.addEventListener("click", printMousePos)
 }
 
-function keyWasPressed(e) {
+function printMousePos(event) {
+    if (event.clientX<200) {
+        if (isAllowedToMove(board, { col: -1, row: 0 })) {
+            board = moveItemOnBoard(board, { col: -1, row: 0 })
+            redraw()
+        }
+    }
+    else {
+        if (isAllowedToMove(board, { col: +1, row: 0 })) {
+            board = moveItemOnBoard(board, { col: +1, row: 0 })
+            redraw()
+        }
+    }
+   
+    /* alert(
+      "clientX: " + event.clientX +
+      " - clientY: " + event.clientY)*/
+  }
+
+export function keyWasPressed(e) {
     if (String.fromCharCode(e.keyCode) == 'j') {
         if (isAllowedToMove(board, { col: -1, row: 0 })) {
             board = moveItemOnBoard(board, { col: -1, row: 0 })
