@@ -1,7 +1,7 @@
 import { getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, copyBoard } from "./board.js"
-import { drawGame } from "./boardDrawer.js"
+import { setCanvas, redraw } from "./boardDrawer.js"
 
-var canvas, ctx, squareItem, board, nextTimedEvent
+var squareItem, board, nextTimedEvent
 
 function setBoard(newBoard) {
     board = newBoard
@@ -11,21 +11,13 @@ function updateBoard(fromBoard) {
     copyBoard(fromBoard, board)
 }
 
+function getBoard() {
+    return board
+}
+
 function updateBoardAndRedraw(fromBoard) {
     updateBoard(fromBoard)
-    redraw()
-}
-
-function redraw() {
-    drawGame(ctx, board.rows, board.cols, canvas.height, canvas.width, board)
-}
-
-function setCanvas(boardWidth,boardHeight) {
-    canvas = document.createElement("canvas");
-    document.getElementsByTagName('body')[0].appendChild(canvas);
-    canvas.width = boardWidth;
-    canvas.height = boardHeight;
-    ctx = canvas.getContext('2d')
+    redraw(getBoard())
 }
 
 

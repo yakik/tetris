@@ -1,4 +1,18 @@
-import { getCellValue} from "./board.js"
+import { getCellValue } from "./board.js"
+
+var canvas, ctx
+
+export function redraw(board) {
+    drawGame(ctx, board.rows, board.cols, canvas.height, canvas.width, board)
+}
+
+export function setCanvas(boardWidth,boardHeight) {
+    canvas = document.createElement("canvas");
+    document.getElementsByTagName('body')[0].appendChild(canvas);
+    canvas.width = boardWidth;
+    canvas.height = boardHeight;
+    ctx = canvas.getContext('2d')
+}
 
 export function drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board) {
 
