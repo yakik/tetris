@@ -1,4 +1,4 @@
-import { moveItemOnBoard,isAllowedToMove,setCellValue,getNewBoard, getCellValue, getBoardWithItem, canItemBePlacedOnBoard, getBoardAfterItemRemoved } from "../../public/javascripts/board"
+import { getBoardAfterMovingItem,isAllowedToMove,setCellValue,getNewBoard, getCellValue, getBoardWithItem, canItemBePlacedOnBoard, getBoardAfterItemRemoved } from "../../public/javascripts/board"
 import { getNewItem } from "../../public/javascripts/item"
 
 describe('board tests', function () {
@@ -25,7 +25,7 @@ describe('board tests', function () {
       var squareItem = getNewItem('Square')
       var board = getNewBoard(3,3)
       var newBoard = getBoardWithItem(board, squareItem, { col: 0, row: 0 })
-      newBoard = moveItemOnBoard(newBoard, { col: 1, row: 1 })
+      newBoard = getBoardAfterMovingItem(newBoard, { col: 1, row: 1 })
       expect(getCellValue(newBoard,{col:0,row:0})).to.eq(0)
       expect(getCellValue(newBoard,{col:1,row:0})).to.eq(0)
       expect(getCellValue(newBoard,{col:0,row:1})).to.eq(0)

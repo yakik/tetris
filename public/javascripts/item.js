@@ -6,10 +6,12 @@ export function getNewItem(itemType) {
             { col: 0, row: 1 },
             { col: 1, row: 1 }],
             key: 1,
-            type : 'Square'
+            type: 'Square'
         };
 
 }
+
+
 
 export function getCoordinatesWithOffset(item, offset) {
     var coordinates = []
@@ -18,6 +20,6 @@ export function getCoordinatesWithOffset(item, offset) {
             col: offset.col + coordinate.col,
             row: offset.row + coordinate.row,
         })
-        });
-        return coordinates
-    }
+    });
+    return coordinates
+}

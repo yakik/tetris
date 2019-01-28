@@ -34,7 +34,7 @@ function isItemCoordinatesVacant(board, item, itemLocationOnBoard) {
 
 export function getBoardWithItem(board, item, itemLocationOnBoard) {
     var itemCoordinates = getCoordinatesWithOffset(item, itemLocationOnBoard)
-    var newBoard = duplicateBoard(board);
+    var newBoard = getDuplicateBoard(board);
     newBoard.item = item
     newBoard.itemLocationOnBoard = itemLocationOnBoard
     itemCoordinates.forEach(coordinate => {
@@ -44,8 +44,8 @@ export function getBoardWithItem(board, item, itemLocationOnBoard) {
 }
 
 
-export function moveItemOnBoard(board, offest) {
-    var newBoard = removeItemFromBoard(board)
+export function getBoardAfterMovingItem(board, offest) {
+    var newBoard = getBoardAfterRemovingItem(board)
     var itemLocationOnBoard = {}
 
     itemLocationOnBoard.col = board.itemLocationOnBoard.col + offest.col
@@ -55,7 +55,7 @@ export function moveItemOnBoard(board, offest) {
 }
 
 export function isAllowedToMove(board, offest) {
-    var newBoard = removeItemFromBoard(board)
+    var newBoard = getBoardAfterRemovingItem(board)
     var itemLocationOnBoard = {}
 
     itemLocationOnBoard.col = board.itemLocationOnBoard.col + offest.col
@@ -64,9 +64,9 @@ export function isAllowedToMove(board, offest) {
 
 }
 
-function removeItemFromBoard(board) {
+function getBoardAfterRemovingItem(board) {
     var itemCoordinates = getCoordinatesWithOffset(board.item, board.itemLocationOnBoard)
-    var newBoard = duplicateBoard(board);
+    var newBoard = getDuplicateBoard(board);
     itemCoordinates.forEach(coordinate => {
         setCellValue(newBoard, coordinate, 0)
     });
@@ -74,7 +74,7 @@ function removeItemFromBoard(board) {
 }
 
 
-function duplicateBoard(board) {
+function getDuplicateBoard(board) {
     var newBoard = getNewBoard(board.cols, board.rows)
 
     for (var i = 0; i < newBoard.cols; i++)
@@ -95,6 +95,14 @@ export function getNewBoard(cols, rows) {
         for (var j = 0; j < rows; j++)
             setCellValue(board, { col: i, row: j }, 0)
     return board
+}
+
+export function copyBoard(fromBoard, toBoard) {
+    for (var i = 0; i < fromBoard.cols; i++)
+        for (var j = 0; j < fromBoard.rows; j++)
+            setCellValue(toBoard, { col: i, row: j }, fromBoard.grid[i][j])
+    toBoard.item = fromBoard.item
+    toBoard.itemLocationOnBoard = fromBoard.itemLocationOnBoard
 }
 
 export function getCellValue(board, coordinate) {

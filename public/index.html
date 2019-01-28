@@ -9,7 +9,8 @@
 <body>
   <script type="module">
     import {tetris } from "./javascripts/tetris.js"
-    tetris(document, {boardRows:20,boardColumns:16,boardWidth:400,boardHeight:500})
+    import { getNextItem } from "./javascripts/itemsGenerator.js"
+    tetris(document, {boardRows:20,boardColumns:16,boardWidth:400,boardHeight:500},getNextItem)
   </script>
 </body>
 

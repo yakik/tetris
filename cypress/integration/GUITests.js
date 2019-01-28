@@ -1,4 +1,4 @@
-import { moveItemOnBoard,isAllowedToMove,setCellValue,getNewBoard, getCellValue, getBoardWithItem, canItemBePlacedOnBoard, getBoardAfterItemRemoved } from "../../public/javascripts/board"
+import { getBoardAfterMovingItem,isAllowedToMove,setCellValue,getNewBoard, getCellValue, getBoardWithItem, canItemBePlacedOnBoard, getBoardAfterItemRemoved } from "../../public/javascripts/board"
 import { getNewItem } from "../../public/javascripts/item"
 
 describe('board tests', function () {

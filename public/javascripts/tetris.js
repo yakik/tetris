@@ -1,11 +1,23 @@
-import { getNewBoard, getBoardWithItem, isAllowedToMove, moveItemOnBoard } from "./board.js"
+import { getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, copyBoard } from "./board.js"
 import { drawGame } from "./boardDrawer.js"
-import { getNewItem } from "./item.js"
 
 var boardRows, boardColumns, boardWidth, boardHeight
 var canvas, ctx, squareItem, board, nextTimedEvent
 
-export function tetris(document, boardConfig) {
+function setBoard(newBoard) {
+    board = newBoard
+}
+
+function updateBoard(fromBoard) {
+    copyBoard(fromBoard,board)
+}
+
+function updateBoardAndRedraw(fromBoard) {
+    updateBoard(fromBoard)
+    redraw()
+}
+
+export function tetris(document, boardConfig, getNextItem) {
 
     boardRows = boardConfig.boardRows
     boardColumns = boardConfig.boardColumns
@@ -17,7 +29,7 @@ export function tetris(document, boardConfig) {
     setCanvasSize(canvas, boardWidth, boardHeight);
     ctx = canvas.getContext('2d')
 
-    squareItem = getNewItem('Square')
+    squareItem = getNextItem()
     board = getNewBoard(boardColumns, boardRows);
     board = getBoardWithItem(board, squareItem, { col: 5, row: 0 })
 
@@ -31,33 +43,25 @@ export function tetris(document, boardConfig) {
 function printMousePos(event) {
     if (event.clientX < 200) {
         if (isAllowedToMove(board, { col: -1, row: 0 })) {
-            board = moveItemOnBoard(board, { col: -1, row: 0 })
-            redraw()
+            updateBoardAndRedraw(getBoardAfterMovingItem(board, { col: -1, row: 0 }))
         }
     }
     else {
         if (isAllowedToMove(board, { col: +1, row: 0 })) {
-            board = moveItemOnBoard(board, { col: +1, row: 0 })
-            redraw()
+            updateBoardAndRedraw(getBoardAfterMovingItem(board, { col: +1, row: 0 }))
         }
     }
-
-    /* alert(
-      "clientX: " + event.clientX +
-      " - clientY: " + event.clientY)*/
 }
 
 export function keyWasPressed(e) {
     if (String.fromCharCode(e.keyCode) == 'j') {
         if (isAllowedToMove(board, { col: -1, row: 0 })) {
-            board = moveItemOnBoard(board, { col: -1, row: 0 })
-            redraw()
+            updateBoardAndRedraw(getBoardAfterMovingItem(board, { col: -1, row: 0 }))
         }
     }
     if (String.fromCharCode(e.keyCode) == 'k') {
         if (isAllowedToMove(board, { col: +1, row: 0 })) {
-            board = moveItemOnBoard(board, { col: +1, row: 0 })
-            redraw()
+            updateBoardAndRedraw(getBoardAfterMovingItem(board, { col: +1, row: 0 }))
         }
     }
 
@@ -65,12 +69,11 @@ export function keyWasPressed(e) {
 
 function moveDownOneAfterInterval() {
     if (isAllowedToMove(board, { col: 0, row: 1 })) {
-        board = moveItemOnBoard(board, { col: 0, row: 1 })
-        redraw()
-
+        updateBoardAndRedraw(getBoardAfterMovingItem(board, { col: 0, row: 1 }))
     }
-    else
-        board = getBoardWithItem(board, squareItem, { col: 5, row: 0 })
+    else {
+        updateBoardAndRedraw(getBoardWithItem(board, squareItem, { col: 5, row: 0 }))
+    }
     nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
 }
 
