@@ -5,8 +5,8 @@ import { areEqual } from "./compareArrays.js";
 
 
 
-describe('move right and left and edge', function () {
-  it('blocks on edge', function () {
+describe('e2e tests', function () {
+  it('move left, right and get new one', function () {
     
     tetris(document, { boardRows: 4, boardColumns: 6, boardWidth: 400, boardHeight: 500 }, 1,
       () => { return getNewItem('Square', 10000) })
