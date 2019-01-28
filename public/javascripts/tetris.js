@@ -2,19 +2,20 @@ import { getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem
 import { setCanvas, redraw } from "./boardDrawer.js"
 import {getBoardCurrentInterval , setBoard, updateBoard , getBoard} from "./gameBoard.js"
 
-var  myGetNextItem, nextTimedEvent
+var  getNextItem, nextTimedEvent, startCol
 
 function updateBoardAndRedraw(fromBoard) {
     updateBoard(fromBoard)
     redraw(getBoard())
 }
 
-export function tetris(document, myBoardConfig, getNextItem) {
-    myGetNextItem = getNextItem
+export function tetris(document, myBoardConfig, myStartCol, myGetNextItem) {
+    getNextItem = myGetNextItem
+    startCol = myStartCol
     setCanvas(myBoardConfig.boardWidth, myBoardConfig.boardHeight)
     
     setBoard(getNewBoard(myBoardConfig.boardColumns, myBoardConfig.boardRows))
-    updateBoardAndRedraw(getBoardWithItem(getBoard(), myGetNextItem(), { col: 5, row: 0 }))
+    updateBoardAndRedraw(getBoardWithItem(getBoard(), getNextItem(), { col: startCol, row: 0 }))
 
     window.onkeypress = keyWasPressed
     nextTimedEvent = setTimeout(moveDownOneAfterInterval, getBoardCurrentInterval())
@@ -35,24 +36,24 @@ function mouseclicked(event) {
 }
 
 export function keyWasPressed(e) {
-    if (String.fromCharCode(e.keyCode) == 'j') {
+    if ((e.key) == 'j') {
         if (isAllowedToMove(getBoard(), { col: -1, row: 0 })) {
             updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: -1, row: 0 }))
         }
     }
-    if (String.fromCharCode(e.keyCode) == 'k') {
+    if (e.key == 'k') {
         if (isAllowedToMove(getBoard(), { col: +1, row: 0 })) {
             updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: +1, row: 0 }))
         }
     }
 }
 
-function moveDownOneAfterInterval() {
+export function moveDownOneAfterInterval() {
     if (isAllowedToMove(getBoard(), { col: 0, row: 1 })) {
         updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: 0, row: 1 }))
     }
     else {
-        updateBoardAndRedraw(getBoardWithItem(getBoard(), myGetNextItem(), { col: 5, row: 0 }))
+        updateBoardAndRedraw(getBoardWithItem(getBoard(), getNextItem(), { col: startCol, row: 0 }))
     }
     nextTimedEvent = setTimeout(moveDownOneAfterInterval, getBoardCurrentInterval())
 }

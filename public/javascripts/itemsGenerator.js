@@ -1,5 +1,5 @@
 import { getNewItem } from "./item.js"
 
 export function getNextItem() {
-    return getNewItem('Square',500)
+    return getNewItem('Square',300)
 }

@@ -7,7 +7,7 @@ export function getNewItem(itemType, currentInterval) {
             { col: 1, row: 1 }],
             key: 1,
             type: 'Square',
-            currentInterval : 300
+            currentInterval : currentInterval
         };
 
 }

@@ -2,3 +2,5 @@ node_modules
 .gitIgnore~
 .vscode
 ..gitIgnore.un~
+cypress/integration/examples.zip
+

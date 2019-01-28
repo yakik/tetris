@@ -1,16 +1,99 @@
-import { getBoardAfterMovingItem,isAllowedToMove,setCellValue,getNewBoard, getCellValue, getBoardWithItem, canItemBePlacedOnBoard, getBoardAfterItemRemoved } from "../../public/javascripts/board"
-import { getNewItem } from "../../public/javascripts/item"
+import { tetris, keyWasPressed, moveDownOneAfterInterval } from "../../public/javascripts/tetris.js"
+import { getNewItem } from "../../public/javascripts/item.js"
+import { getBoard } from "../../public/javascripts/gameBoard.js"
+import { areEqual } from "./compareArrays.js";
 
-describe('board tests', function () {
-    it('can move the box', function() {
-      cy.visit('http://localhost:3000/')
-      cy.get('canvas').trigger('onkeypress', props)
- 
-  
-   
-  
+
+
+describe('move right and left and edge', function () {
+  it('blocks on edge', function () {
+    
+    tetris(document, { boardRows: 4, boardColumns: 6, boardWidth: 400, boardHeight: 500 }, 1,
+      () => { return getNewItem('Square', 10000) })
+    var a = getBoard().grid
+    
+    expect(areEqual(getBoard().grid,([
+      [0, 0, 0, 0],
+      [1, 1, 0, 0],
+      [1, 1, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
+    ]))).is.true
+
+    var keyPressed = { key: 'j' }
+
+    keyWasPressed(keyPressed)
+
+    expect(areEqual(getBoard().grid,([
+      [1, 1, 0, 0],
+      [1, 1, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
+    ]))).is.true
+
+    var keyPressed = { key: 'j' }
+
+    keyWasPressed(keyPressed)
+
+    expect(areEqual(getBoard().grid,([
+      [1, 1, 0, 0],
+      [1, 1, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0]
+    ]))).is.true
+
+     keyPressed = { key: 'k' }
+    for (var i = 0; i < 10; i++)
+      keyWasPressed(keyPressed)
+
+      expect(areEqual(getBoard().grid,([
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [1, 1, 0, 0],
+        [1, 1, 0, 0]
+      ]))).is.true
+    
+    moveDownOneAfterInterval()
+    
+    expect(areEqual(getBoard().grid,([
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 1, 1, 0],
+      [0, 1, 1, 0]
+    ]))).is.true
+
+    moveDownOneAfterInterval()
+
+    expect(areEqual(getBoard().grid,([
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 1, 1],
+      [0, 0, 1, 1]
+    ]))).is.true
+
+    moveDownOneAfterInterval()
+
+    expect(areEqual(getBoard().grid,([
+      [0, 0, 0, 0],
+      [1, 1, 0, 0],
+      [1, 1, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 1, 1],
+      [0, 0, 1, 1]
+    ]))).is.true
+
+
+
   })
-
-
-
-
+})
