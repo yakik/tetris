@@ -2,34 +2,34 @@ import { getNewBoard, getBoardWithItem, isAllowedToMove, moveItemOnBoard } from 
 import { drawGame } from "./boardDrawer.js"
 import { getNewItem } from "./item.js"
 
-const boardRows = 20
-const boardColumns = 16
-const boardWidth = 400
-const boardHeight = 500
+var boardRows, boardColumns, boardWidth, boardHeight
+var canvas, ctx, squareItem, board, nextTimedEvent
 
+export function tetris(document, boardConfig) {
 
-var canvas = document.createElement("canvas");
-document.getElementsByTagName('body')[0].appendChild(canvas);
-setCanvasSize(canvas, boardWidth, boardHeight);
-var ctx = canvas.getContext('2d')
+    boardRows = boardConfig.boardRows
+    boardColumns = boardConfig.boardColumns
+    boardWidth = boardConfig.boardWidth
+    boardHeight = boardConfig.boardHeight
 
-var squareItem = getNewItem('Square')
-var board = getNewBoard(boardColumns, boardRows);
-board = getBoardWithItem(board, squareItem, { col: 5, row: 0 })
+    canvas = document.createElement("canvas");
+    document.getElementsByTagName('body')[0].appendChild(canvas);
+    setCanvasSize(canvas, boardWidth, boardHeight);
+    ctx = canvas.getContext('2d')
 
-var nextTimedEvent
+    squareItem = getNewItem('Square')
+    board = getNewBoard(boardColumns, boardRows);
+    board = getBoardWithItem(board, squareItem, { col: 5, row: 0 })
 
-drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board)
+    drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board)
 
-export function tetris(document) {
-    
     window.onkeypress = keyWasPressed
     nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
     document.addEventListener("click", printMousePos)
 }
 
 function printMousePos(event) {
-    if (event.clientX<200) {
+    if (event.clientX < 200) {
         if (isAllowedToMove(board, { col: -1, row: 0 })) {
             board = moveItemOnBoard(board, { col: -1, row: 0 })
             redraw()
@@ -41,11 +41,11 @@ function printMousePos(event) {
             redraw()
         }
     }
-   
+
     /* alert(
       "clientX: " + event.clientX +
       " - clientY: " + event.clientY)*/
-  }
+}
 
 export function keyWasPressed(e) {
     if (String.fromCharCode(e.keyCode) == 'j') {
