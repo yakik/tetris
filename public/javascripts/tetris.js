@@ -1,7 +1,6 @@
 import { getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, copyBoard } from "./board.js"
 import { drawGame } from "./boardDrawer.js"
 
-var boardRows, boardColumns, boardWidth, boardHeight
 var canvas, ctx, squareItem, board, nextTimedEvent
 
 function setBoard(newBoard) {
@@ -9,7 +8,7 @@ function setBoard(newBoard) {
 }
 
 function updateBoard(fromBoard) {
-    copyBoard(fromBoard,board)
+    copyBoard(fromBoard, board)
 }
 
 function updateBoardAndRedraw(fromBoard) {
@@ -17,23 +16,25 @@ function updateBoardAndRedraw(fromBoard) {
     redraw()
 }
 
-export function tetris(document, boardConfig, getNextItem) {
+function redraw() {
+    drawGame(ctx, board.rows, board.cols, canvas.height, canvas.width, board)
+}
 
-    boardRows = boardConfig.boardRows
-    boardColumns = boardConfig.boardColumns
-    boardWidth = boardConfig.boardWidth
-    boardHeight = boardConfig.boardHeight
-
+function setCanvas(boardWidth,boardHeight) {
     canvas = document.createElement("canvas");
     document.getElementsByTagName('body')[0].appendChild(canvas);
-    setCanvasSize(canvas, boardWidth, boardHeight);
+    canvas.width = boardWidth;
+    canvas.height = boardHeight;
     ctx = canvas.getContext('2d')
+}
 
+
+export function tetris(document, myBoardConfig, getNextItem) {
+    setCanvas(myBoardConfig.boardWidth,myBoardConfig.boardHeight)
     squareItem = getNextItem()
-    board = getNewBoard(boardColumns, boardRows);
-    board = getBoardWithItem(board, squareItem, { col: 5, row: 0 })
-
-    drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board)
+    
+    setBoard(getNewBoard(myBoardConfig.boardColumns, myBoardConfig.boardRows))
+    updateBoardAndRedraw(getBoardWithItem(board, squareItem, { col: 5, row: 0 }))
 
     window.onkeypress = keyWasPressed
     nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
@@ -77,13 +78,5 @@ function moveDownOneAfterInterval() {
     nextTimedEvent = setTimeout(moveDownOneAfterInterval, 500)
 }
 
-function redraw() {
-    drawGame(ctx, boardRows, boardColumns, boardHeight, boardWidth, board)
-}
 
-
-function setCanvasSize(canvas, boardWidth, boardHeight) {
-    canvas.width = boardWidth;
-    canvas.height = boardHeight;
-}
 
