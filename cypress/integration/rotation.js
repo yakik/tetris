@@ -50,19 +50,19 @@ describe('rotation tests', function () {
         var newBoard = getBoardAfterItemCWRotation(newBoard)
 
         expect(areEqual(newBoard.grid, ([
-            [0, 0, 0, 0],
-            [2, 2, 2, 2],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
+            [0, 2, 0, 0],
+            [0, 2, 0, 0],
+            [0, 2, 0, 0],
+            [0, 2, 0, 0]
         ]))).is.true
 
         newBoard = getBoardAfterItemCWRotation(newBoard)
 
         expect(areEqual(newBoard.grid, ([
-            [2, 0, 0, 0],
-            [2, 0, 0, 0],
-            [2, 0, 0, 0],
-            [2, 0, 0, 0]
+            [2, 2, 2, 2],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
         ]))).is.true
     })
 
@@ -77,19 +77,19 @@ describe('rotation tests', function () {
         var newBoard = getBoardAfterItemCCWRotation(newBoard)
 
         expect(areEqual(newBoard.grid, ([
-            [0, 0, 0, 0],
-            [2, 2, 2, 2],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
+            [0, 2, 0, 0],
+            [0, 2, 0, 0],
+            [0, 2, 0, 0],
+            [0, 2, 0, 0]
         ]))).is.true
 
         newBoard = getBoardAfterItemCWRotation(newBoard)
 
         expect(areEqual(newBoard.grid, ([
-            [2, 0, 0, 0],
-            [2, 0, 0, 0],
-            [2, 0, 0, 0],
-            [2, 0, 0, 0]
+            [2, 2, 2, 2],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
         ]))).is.true
     })
 
@@ -101,66 +101,66 @@ describe('rotation tests', function () {
         var itemLocationOnBoard = { col: 0, row: 0 };
 
         var newBoard = getBoardWithItem(board, item, itemLocationOnBoard)
-        newBoard = getBoardAfterItemCWRotation(newBoard)
-        expect(areEqual(newBoard.grid, ([
-            [0, 3, 0, 0],
-            [3, 3, 3, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ]))).is.true
-
-        newBoard = getBoardAfterItemCWRotation(newBoard)
-        expect(areEqual(newBoard.grid, ([
-            [0, 3, 0, 0],
-            [0, 3, 3, 0],
-            [0, 3, 0, 0],
-            [0, 0, 0, 0]
-        ]))).is.true
-
-        newBoard = getBoardAfterItemCWRotation(newBoard)
-        expect(areEqual(newBoard.grid, ([
-            [0, 0, 0, 0],
-            [3, 3, 3, 0],
-            [0, 3, 0, 0],
-            [0, 0, 0, 0]
-        ]))).is.true
-
-        newBoard = getBoardAfterItemCWRotation(newBoard)
-        expect(areEqual(newBoard.grid, ([
-            [0, 3, 0, 0],
-            [3, 3,0 ,0],
-            [0, 3, 0, 0],
-            [0, 0, 0, 0]
-        ]))).is.true
-
-        newBoard = getBoardAfterItemCCWRotation(newBoard)
-        expect(areEqual(newBoard.grid, ([
-            [0, 0, 0, 0],
-            [3, 3, 3, 0],
-            [0, 3, 0, 0],
-            [0, 0, 0, 0]
-        ]))).is.true
-
-        newBoard = getBoardAfterItemCCWRotation(newBoard)
-        expect(areEqual(newBoard.grid, ([
-            [0, 3, 0, 0],
-            [0, 3, 3, 0],
-            [0, 3, 0, 0],
-            [0, 0, 0, 0]
-        ]))).is.true
-        newBoard = getBoardAfterItemCCWRotation(newBoard)
-        expect(areEqual(newBoard.grid, ([
-            [0, 3, 0, 0],
-            [3, 3, 3, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ]))).is.true
-
         newBoard = getBoardAfterItemCCWRotation(newBoard)
         expect(areEqual(newBoard.grid, ([
             [0, 3, 0, 0],
             [3, 3, 0, 0],
             [0, 3, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 0, 0, 0],
+            [3, 3, 3, 0],
+            [0, 3, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 3, 0, 0],
+            [0, 3, 3, 0],
+            [0, 3, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 3, 0, 0],
+            [3, 3,3 ,0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 3, 0, 0],
+            [0, 3, 3, 0],
+            [0, 3, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 0, 0, 0],
+            [3, 3, 3, 0],
+            [0, 3, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 3, 0, 0],
+            [3, 3, 0, 0],
+            [0, 3, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 3, 0, 0],
+            [3, 3, 3, 0],
+            [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]))).is.true
     })
@@ -174,11 +174,68 @@ describe('rotation tests', function () {
         var newBoard = getBoardWithItem(board, item, itemLocationOnBoard)
 
         expect(areEqual(newBoard.grid, ([
-            [4, 4, 0, 0],
+            [4, 0, 0, 0],
+            [4, 4, 4, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,4, 4, 0],
             [0, 4, 0, 0],
             [0, 4, 0, 0],
             [0, 0, 0, 0]
         ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,0, 0, 0],
+            [4, 4, 4, 0],
+            [0, 0, 4, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,4, 0, 0],
+            [0, 4, 0, 0],
+            [4, 4, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,0, 0, 0],
+            [4, 4, 4, 0],
+            [0, 0, 4, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,4, 4, 0],
+            [0, 4, 0, 0],
+            [0, 4, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [4,0, 0, 0],
+            [4, 4, 4, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,4, 0, 0],
+            [0, 4, 0, 0],
+            [4, 4, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
     })
 
     it('RightL', function () {
@@ -190,9 +247,65 @@ describe('rotation tests', function () {
         var newBoard = getBoardWithItem(board, item, itemLocationOnBoard)
 
         expect(areEqual(newBoard.grid, ([
+            [0, 0, 5, 0],
+            [5, 5, 5, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,5, 0, 0],
+            [0, 5, 0, 0],
+            [0, 5, 5, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,0, 0, 0],
+            [5, 5, 5, 0],
+            [5, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [5,5, 0, 0],
             [0, 5, 0, 0],
             [0, 5, 0, 0],
-            [5, 5, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,0, 0, 0],
+            [5, 5, 5, 0],
+            [5, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,5, 0, 0],
+            [0, 5, 0, 0],
+            [0, 5, 5, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,0, 5, 0],
+            [5, 5, 5, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [5,5, 0, 0],
+            [0, 5, 0, 0],
+            [0, 5, 0, 0],
             [0, 0, 0, 0]
         ]))).is.true
     })
@@ -206,11 +319,37 @@ describe('rotation tests', function () {
         var newBoard = getBoardWithItem(board, item, itemLocationOnBoard)
 
         expect(areEqual(newBoard.grid, ([
-            [6, 0, 0, 0],
             [6, 6, 0, 0],
-            [0, 6, 0, 0],
+            [0, 6, 6, 0],
+            [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,6, 0, 0],
+            [6, 6, 0, 0],
+            [6, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [6, 6, 0, 0],
+            [0, 6, 6, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0,6, 0, 0],
+            [6, 6, 0, 0],
+            [6, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+
     })
 
     it('RightStep', function () {
@@ -223,9 +362,33 @@ describe('rotation tests', function () {
         var newBoard = getBoardWithItem(board, item, itemLocationOnBoard)
 
         expect(areEqual(newBoard.grid, ([
-            [0, 7, 0, 0],
+            [0, 7, 7, 0],
             [7, 7, 0, 0],
-            [7, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 7, 0, 0],
+            [0, 7, 7, 0],
+            [0, 0, 7, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 7, 7, 0],
+            [7, 7, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]))).is.true
+
+        newBoard = getBoardAfterItemCWRotation(newBoard)
+        expect(areEqual(newBoard.grid, ([
+            [0, 7, 0, 0],
+            [0, 7, 7, 0],
+            [0, 0, 7, 0],
             [0, 0, 0, 0]
         ]))).is.true
     })

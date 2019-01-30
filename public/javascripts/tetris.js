@@ -1,4 +1,4 @@
-import { getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, copyBoard } from "./board.js"
+import { getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, getBoardAfterItemCWRotation } from "./board.js"
 import { setCanvas, redraw } from "./boardDrawer.js"
 import {getBoardCurrentInterval , setBoard, updateBoard , getBoard} from "./gameBoard.js"
 
@@ -45,6 +45,11 @@ export function keyWasPressed(e) {
         if (isAllowedToMove(getBoard(), { col: +1, row: 0 })) {
             updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: +1, row: 0 }))
         }
+    }
+    if (e.key == 'k') {
+ // if (isAllowedToMove(getBoard(), { col: +1, row: 0 })) {
+            updateBoardAndRedraw(getBoardAfterItemCWRotation(getBoard()))
+   //     }
     }
     if (e.key == 'm') {
         while (isAllowedToMove(getBoard(), { col: 0, row: +1 })) {

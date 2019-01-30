@@ -1,7 +1,7 @@
 import { getBoardAfterMovingItem,isAllowedToMove,setCellValue,getNewBoard, getCellValue, getBoardWithItem, canItemBePlacedOnBoard, getBoardAfterItemRemoved } from "../../public/javascripts/board"
 import { getNewItem } from "../../public/javascripts/item"
 
-describe('board tests', function () {
+describe('item tests', function () {
     it('knows to reflect item on board', function() {
       var squareItem = getNewItem('Square')
   

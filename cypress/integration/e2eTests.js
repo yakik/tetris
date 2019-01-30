@@ -13,12 +13,11 @@ describe('e2e tests', function () {
     var a = getBoard().grid
     
     expect(areEqual(getBoard().grid,([
-      [0, 0, 0, 0],
-      [1, 1, 0, 0],
-      [1, 1, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [0, 1, 1, 0, 0, 0],
+      [0, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+    
     ]))).is.true
 
     var keyPressed = { key: 'j' }
@@ -26,12 +25,10 @@ describe('e2e tests', function () {
     keyWasPressed(keyPressed)
 
     expect(areEqual(getBoard().grid,([
-      [1, 1, 0, 0],
-      [1, 1, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [1, 1, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
     ]))).is.true
 
     var keyPressed = { key: 'j' }
@@ -39,12 +36,10 @@ describe('e2e tests', function () {
     keyWasPressed(keyPressed)
 
     expect(areEqual(getBoard().grid,([
-      [1, 1, 0, 0],
-      [1, 1, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
+      [1, 1, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
     ]))).is.true
 
      keyPressed = { key: 'l' }
@@ -52,57 +47,47 @@ describe('e2e tests', function () {
       keyWasPressed(keyPressed)
 
       expect(areEqual(getBoard().grid,([
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [1, 1, 0, 0],
-        [1, 1, 0, 0]
+        [0, 0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
       ]))).is.true
     
     moveDownOneAfterInterval()
     
     expect(areEqual(getBoard().grid,([
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 1, 1, 0],
-      [0, 1, 1, 0]
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1],
+      [0, 0, 0, 0, 1, 1],
+      [0, 0, 0, 0, 0, 0],
     ]))).is.true
 
     moveDownOneAfterInterval()
 
     expect(areEqual(getBoard().grid,([
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 1, 1],
-      [0, 0, 1, 1]
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1],
+      [0, 0, 0, 0, 1, 1],
     ]))).is.true
 
     moveDownOneAfterInterval()
 
     expect(areEqual(getBoard().grid,([
-      [0, 0, 0, 0],
-      [1, 1, 0, 0],
-      [1, 1, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 1, 1],
-      [0, 0, 1, 1]
+      [0, 1, 1, 0, 0, 0],
+      [0, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1],
+      [0, 0, 0, 0, 1, 1],
     ]))).is.true
 
     keyPressed = { key: 'm' }
       keyWasPressed(keyPressed)
 
       expect(areEqual(getBoard().grid,([
-        [0, 0, 0, 0],
-        [0, 0, 1, 1],
-        [0, 0, 1, 1],
-        [0, 0, 0, 0],
-        [0, 0, 1, 1],
-        [0, 0, 1, 1]
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 0, 1, 1],
+      [0, 1, 1, 0, 1, 1],
       ]))).is.true
 
   })

@@ -106,9 +106,9 @@ export function getNewBoard(cols, rows) {
     var board = {}
     board.cols = cols
     board.rows = rows
-    board.grid = new Array(cols);
-    for (var i = 0; i < cols; i++)
-        board.grid[i] = new Array(rows);
+    board.grid = new Array(rows);
+    for (var i = 0; i < rows; i++)
+        board.grid[i] = new Array(cols);
     for (var i = 0; i < cols; i++)
         for (var j = 0; j < rows; j++)
             setCellValue(board, { col: i, row: j }, 0)
@@ -118,15 +118,15 @@ export function getNewBoard(cols, rows) {
 export function copyBoard(fromBoard, toBoard) {
     for (var i = 0; i < fromBoard.cols; i++)
         for (var j = 0; j < fromBoard.rows; j++)
-            setCellValue(toBoard, { col: i, row: j }, fromBoard.grid[i][j])
+            setCellValue(toBoard, { col: i, row: j }, getCellValue(fromBoard,{ col: i, row: j }))
     toBoard.item = fromBoard.item
     toBoard.itemLocationOnBoard = fromBoard.itemLocationOnBoard
 }
 
 export function getCellValue(board, coordinate) {
-    return board.grid[coordinate.col][coordinate.row]
+    return board.grid[coordinate.row][coordinate.col]
 }
 
 export function setCellValue(board, coordinate, value) {
-    board.grid[coordinate.col][coordinate.row] = value
+    board.grid[coordinate.row][coordinate.col] = value
 }
