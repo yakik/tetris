@@ -41,11 +41,17 @@ export function keyWasPressed(e) {
             updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: -1, row: 0 }))
         }
     }
-    if (e.key == 'k') {
+    if (e.key == 'l') {
         if (isAllowedToMove(getBoard(), { col: +1, row: 0 })) {
             updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: +1, row: 0 }))
         }
     }
+    if (e.key == 'm') {
+        while (isAllowedToMove(getBoard(), { col: 0, row: +1 })) {
+            updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: 0, row: +1 }))
+        }
+    }
+    
 }
 
 export function moveDownOneAfterInterval() {

@@ -1,5 +1,23 @@
 
-import { getCoordinatesWithOffset } from "./item.js"
+import { getCoordinatesWithOffset, getItemCWRotated,getItemCCWRotated } from "./item.js"
+
+export function getBoardAfterItemCWRotation(board) {
+        var item = board.item
+        var itemLocationOnBoard = board.itemLocationOnBoard
+        var newBoard = getBoardAfterRemovingItem(board)
+        item = getItemCWRotated(item)
+        return getBoardWithItem(newBoard,item,itemLocationOnBoard)
+}
+
+
+
+export function getBoardAfterItemCCWRotation(board) {
+    var item = board.item
+    var itemLocationOnBoard = board.itemLocationOnBoard
+    var newBoard = getBoardAfterRemovingItem(board)
+    item = getItemCCWRotated(item)
+    return getBoardWithItem(newBoard,item,itemLocationOnBoard)
+}
 
 export function canItemBePlacedOnBoard(board, item, itemLocationOnBoard) {
     if (!isItemWithinBoardLimits(board, item, itemLocationOnBoard))

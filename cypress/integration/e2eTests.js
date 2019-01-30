@@ -47,7 +47,7 @@ describe('e2e tests', function () {
       [0, 0, 0, 0]
     ]))).is.true
 
-     keyPressed = { key: 'k' }
+     keyPressed = { key: 'l' }
     for (var i = 0; i < 10; i++)
       keyWasPressed(keyPressed)
 
@@ -93,7 +93,17 @@ describe('e2e tests', function () {
       [0, 0, 1, 1]
     ]))).is.true
 
+    keyPressed = { key: 'm' }
+      keyWasPressed(keyPressed)
 
+      expect(areEqual(getBoard().grid,([
+        [0, 0, 0, 0],
+        [0, 0, 1, 1],
+        [0, 0, 1, 1],
+        [0, 0, 0, 0],
+        [0, 0, 1, 1],
+        [0, 0, 1, 1]
+      ]))).is.true
 
   })
 })
