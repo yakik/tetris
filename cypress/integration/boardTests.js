@@ -1,7 +1,10 @@
-import { getBoardAfterMovingItem,isAllowedToMove,setCellValue,getNewBoard, getCellValue, getBoardWithItem, canItemBePlacedOnBoard, getBoardAfterItemRemoved } from "../../public/javascripts/board"
+import {
+  getBoardAfterMovingItem, isAllowedToMove, setCellValue, getNewBoard,
+  getCellValue, getBoardWithItem, canItemBePlacedOnBoard, isAllowedToRotateCW, isAllowedToRotateCCW
+} from "../../public/javascripts/board"
 import { getNewItem } from "../../public/javascripts/item"
 
-describe('item tests', function () {
+describe('board tests', function () {
     it('knows to reflect item on board', function() {
       var squareItem = getNewItem('Square')
   
@@ -36,6 +39,30 @@ describe('item tests', function () {
       expect(getCellValue(newBoard,{col:0,row:2})).to.eq(0)
       expect(getCellValue(newBoard,{col:1,row:2})).to.eq(1)
     })
+  
+  
+    it('allows to rotate item when possible', function() {
+      var item = getNewItem('LeftL')
+      var board = getNewBoard(3,3)
+      var newBoard = getBoardWithItem(board, item, { col: 0, row: 0 })
+      
+      expect(isAllowedToRotateCW(newBoard)).to.be.true
+      
+      expect(isAllowedToRotateCCW(newBoard)).to.be.true
+      
+    })
+  
+    it('doesnt allow to rotate item when impossible', function() {
+      var item = getNewItem('LeftL')
+      var board = getNewBoard(3,3)
+      var newBoard = getBoardWithItem(board, item, { col: 0, row: 0 })
+      setCellValue(newBoard,{col:1,row:0},1)
+      
+      expect(isAllowedToRotateCW(newBoard)).to.be.false
+      expect(isAllowedToRotateCCW(newBoard)).to.be.false
+      
+    })
+  
   
   
     it('allows to move item when possible', function() {

@@ -89,10 +89,10 @@ const itemsConfiguration = {
         { col: 1, row: 0 },
         { col: 1, row: 1 },
         { col: 2, row: 1 }],
-        [{ col: 1, row: 0 },
+        [{ col: 2, row: 0 },
+        { col: 2, row: 1 },
         { col: 1, row: 1 },
-        { col: 0, row: 1 },
-        { col: 0, row: 2 }]]
+        { col: 1, row: 2 }]]
     }
     , RightStep: {
         numberOfRotations: 2,
@@ -108,13 +108,15 @@ const itemsConfiguration = {
     }
 
 }
-export function getItemCWRotated(item) {
+export function getItemCWRotated(sourceItem) {
+    var item = getDuplicateItem(sourceItem)
     item.rotation = (item.rotation + 1 + itemsConfiguration[item.type].numberOfRotations) % itemsConfiguration[item.type].numberOfRotations
     item.coordinates = itemsConfiguration[item.type].rotations[item.rotation]
     return item
 }
 
-export function getItemCCWRotated(item) {
+export function getItemCCWRotated(sourceItem) {
+    var item = getDuplicateItem(sourceItem)
     item.rotation = (item.rotation - 1 + itemsConfiguration[item.type].numberOfRotations) % itemsConfiguration[item.type].numberOfRotations
     item.coordinates = itemsConfiguration[item.type].rotations[item.rotation]
     return item
@@ -127,6 +129,16 @@ export function getNewItem(itemType, currentInterval) {
         type: itemType,
         rotation: 0,
         currentInterval: currentInterval
+    }
+}
+
+function getDuplicateItem(item) {
+    return {
+        coordinates: itemsConfiguration[item.type].rotations[item.rotation],
+        key: itemsConfiguration[item.type].key,
+        type: item.type,
+        rotation: item.rotation,
+        currentInterval: item.currentInterval
     }
 }
 

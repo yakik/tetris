@@ -36,6 +36,7 @@ function mouseclicked(event) {
 }
 
 export function keyWasPressed(e) {
+    
     if ((e.key) == 'j') {
         if (isAllowedToMove(getBoard(), { col: -1, row: 0 })) {
             updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: -1, row: 0 }))

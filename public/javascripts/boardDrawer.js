@@ -8,13 +8,14 @@ export function redraw(board) {
 }
 
 export function setCanvas(boardWidth, boardHeight) {
-    canvas = document.createElement("canvas");
+    canvas = document.createElement('canvas');
+    canvas.id = 'mainCanvas';
     document.getElementsByTagName('body')[0].appendChild(canvas);
     canvas.width = boardWidth;
     canvas.height = boardHeight;
     ctx = canvas.getContext('2d')
 
-    secondCanvas = document.createElement("canvas");
+    secondCanvas = document.createElement('canvas');
     secondCanvas.hidden = true
     document.getElementsByTagName('body')[0].appendChild(secondCanvas);
     secondCanvas.width = boardWidth;
