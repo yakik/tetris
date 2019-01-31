@@ -35,6 +35,18 @@ export function tetris(document, myBoardConfig, myStartCol, myGetNextItem) {
 }
 
 function mouseclicked(event) {
+
+    if (event.clientY > 350) {
+        while (isAllowedToMove(getBoard(), { col: 0, row: +1 })) {
+            updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: 0, row: +1 }))
+        }
+    }
+
+    if (event.clientY <100) {
+        if (isAllowedToRotateCW(getBoard())) {
+            updateBoardAndRedraw(getBoardAfterItemCWRotation(getBoard()))
+        }
+    }
     if (event.clientX < 200) {
         if (isAllowedToMove(getBoard(), { col: -1, row: 0 })) {
             updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: -1, row: 0 }))
