@@ -1,10 +1,12 @@
 import {
     getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, getBoardAfterItemCWRotation,
     getBoardAfterItemCCWRotation    , isAllowedToRotateCW, isAllowedToRotateCCW} from "./board.js"
-import { setCanvas, redraw } from "./boardDrawer.js"
+import { redraw , setBoardDimensions, drawBoard} from "./boardDrawer.js"
 import {getBoardCurrentInterval , setBoard, updateBoard , getBoard} from "./gameBoard.js"
 
-var getNextItem, nextTimedEvent, startCol, runMode
+
+
+var  nextTimedEvent, startCol, runMode, getNextItem
 
 function updateBoardAndRedraw(fromBoard) {
     updateBoard(fromBoard)
@@ -15,11 +17,15 @@ export function tetris(document, myBoardConfig, myStartCol, myGetNextItem) {
     var searchParams = new URLSearchParams(window.location.search);
     runMode = searchParams.get("mode") 
     
-    getNextItem = myGetNextItem
     startCol = myStartCol
-    setCanvas(myBoardConfig.boardWidth, myBoardConfig.boardHeight)
+
+    getNextItem = myGetNextItem
+
+   
+    setBoardDimensions(myBoardConfig.boardWidth, myBoardConfig.boardHeight)
     
     setBoard(getNewBoard(myBoardConfig.boardColumns, myBoardConfig.boardRows))
+    drawBoard( myBoardConfig.boardRows,myBoardConfig.boardColumns,getBoard())
     updateBoardAndRedraw(getBoardWithItem(getBoard(), getNextItem(), { col: startCol, row: 0 }))
 
     window.onkeypress = keyWasPressed

@@ -1,6 +1,6 @@
 import { getNewItem } from "./item.js"
 
-var typesArray = [7]
+var typesArray = [6]
 typesArray[0] = getNewItem('Square',300)
 typesArray[1] = getNewItem('Line',300)
 typesArray[2] = getNewItem('Plus',300)
@@ -11,5 +11,6 @@ typesArray[6] = getNewItem('RightStep',300)
 
 
 export function getNextItem() {
-    return typesArray[Math.floor(Math.random() * 7)]
+    var item = typesArray[Math.floor(Math.random() * 7)]
+    return item
 }

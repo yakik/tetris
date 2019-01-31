@@ -132,7 +132,7 @@ export function getNewItem(itemType, currentInterval) {
     }
 }
 
-function getDuplicateItem(item) {
+export function getDuplicateItem(item) {
     return {
         coordinates: itemsConfiguration[item.type].rotations[item.rotation],
         key: itemsConfiguration[item.type].key,

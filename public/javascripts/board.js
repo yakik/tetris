@@ -1,5 +1,5 @@
 
-import { getCoordinatesWithOffset, getItemCWRotated,getItemCCWRotated } from "./item.js"
+import { getDuplicateItem, getCoordinatesWithOffset, getItemCWRotated,getItemCCWRotated } from "./item.js"
 
 
 export function isAllowedToRotateCW(board){
@@ -98,12 +98,16 @@ export function getBoardAfterMovingItem(board, offest) {
 }
 
 export function isAllowedToMove(board, offest) {
-    var newBoard = getBoardAfterRemovingItem(board)
     var itemLocationOnBoard = {}
-
+    var item = getDuplicateItem(board.item)
     itemLocationOnBoard.col = board.itemLocationOnBoard.col + offest.col
     itemLocationOnBoard.row = board.itemLocationOnBoard.row + offest.row
-    return canItemBePlacedOnBoard(newBoard, board.item, itemLocationOnBoard)
+    var newBoard = getBoardAfterRemovingItem(board)
+  
+    
+
+    
+    return canItemBePlacedOnBoard(newBoard, item, itemLocationOnBoard)
 
 }
 
