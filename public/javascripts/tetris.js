@@ -1,8 +1,10 @@
-import { getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, getBoardAfterItemCWRotation } from "./board.js"
+import {
+    getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, getBoardAfterItemCWRotation,
+    getBoardAfterItemCCWRotation    , isAllowedToRotateCW, isAllowedToRotateCCW} from "./board.js"
 import { setCanvas, redraw } from "./boardDrawer.js"
 import {getBoardCurrentInterval , setBoard, updateBoard , getBoard} from "./gameBoard.js"
 
-var  getNextItem, nextTimedEvent, startCol
+var getNextItem, nextTimedEvent, startCol, runMode
 
 function updateBoardAndRedraw(fromBoard) {
     updateBoard(fromBoard)
@@ -10,6 +12,9 @@ function updateBoardAndRedraw(fromBoard) {
 }
 
 export function tetris(document, myBoardConfig, myStartCol, myGetNextItem) {
+    var searchParams = new URLSearchParams(window.location.search);
+    runMode = searchParams.get("mode") 
+    
     getNextItem = myGetNextItem
     startCol = myStartCol
     setCanvas(myBoardConfig.boardWidth, myBoardConfig.boardHeight)
@@ -18,7 +23,8 @@ export function tetris(document, myBoardConfig, myStartCol, myGetNextItem) {
     updateBoardAndRedraw(getBoardWithItem(getBoard(), getNextItem(), { col: startCol, row: 0 }))
 
     window.onkeypress = keyWasPressed
-    nextTimedEvent = setTimeout(moveDownOneAfterInterval, getBoardCurrentInterval())
+    if (runMode==="prod")
+        nextTimedEvent = setTimeout(moveDownOneAfterInterval, getBoardCurrentInterval())
     document.addEventListener("click", mouseclicked)
 }
 
@@ -48,13 +54,27 @@ export function keyWasPressed(e) {
         }
     }
     if (e.key == 'k') {
- // if (isAllowedToMove(getBoard(), { col: +1, row: 0 })) {
+  if (isAllowedToRotateCW(getBoard())) {
             updateBoardAndRedraw(getBoardAfterItemCWRotation(getBoard()))
-   //     }
+        }
     }
+    if (e.key == 'i') {
+        if (isAllowedToRotateCCW(getBoard())) {
+                  updateBoardAndRedraw(getBoardAfterItemCCWRotation(getBoard()))
+              }
+          }
+
     if (e.key == 'm') {
         while (isAllowedToMove(getBoard(), { col: 0, row: +1 })) {
             updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: 0, row: +1 }))
+        }
+    }
+    if (e.key == 'z') {
+        if (isAllowedToMove(getBoard(), { col: 0, row: +1 })) {
+            updateBoardAndRedraw(getBoardAfterMovingItem(getBoard(), { col: 0, row: +1 }))
+        }
+        else {
+            updateBoardAndRedraw(getBoardWithItem(getBoard(), getNextItem(), { col: startCol, row: 0 }))
         }
     }
     
