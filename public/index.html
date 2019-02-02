@@ -15,7 +15,9 @@
   <script type="module">
     import {tetris } from "./javascripts/tetris.js"
     import { getNextItem } from "./javascripts/itemsGenerator.js"
-    tetris(document, {boardRows:20,boardColumns:16,boardWidth:400,boardHeight:500},7,getNextItem)
+    var searchParams = new URLSearchParams(window.location.search);
+    var runMode = searchParams.get("mode")
+    tetris(document, {boardRows:20,boardColumns:12},7,getNextItem, runMode )
   </script>
 </body>
 
