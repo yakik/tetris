@@ -86,6 +86,18 @@ export function getBoardWithItem(board, item, itemLocationOnBoard) {
     return newBoard
 }
 
+export function getFirstCompleteRowFromBottom(board) {
+    for (var rowIndex = board.rows - 1; rowIndex >= 0; rowIndex--){
+        var isComplete = true
+        for (var colIndex = 0; colIndex < board.cols; colIndex++)
+            if (getCellValue(board, { col: colIndex, row: rowIndex }) == 0)
+                isComplete = false
+        if (isComplete)
+            return rowIndex
+    }
+    return -1
+}
+
 
 export function getBoardAfterMovingItem(board, offest) {
     var newBoard = getBoardAfterRemovingItem(board)

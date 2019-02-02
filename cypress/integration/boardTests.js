@@ -1,5 +1,5 @@
 import {
-  getBoardAfterMovingItem, isAllowedToMove, setCellValue, getNewBoard,
+  getBoardAfterMovingItem, isAllowedToMove, setCellValue, getNewBoard, getFirstCompleteRowFromBottom,
   getCellValue, getBoardWithItem, canItemBePlacedOnBoard, isAllowedToRotateCW, isAllowedToRotateCCW
 } from "../../public/javascripts/board"
 import { getNewItem } from "../../public/javascripts/item"
@@ -63,7 +63,22 @@ describe('board tests', function () {
       
     })
   
+    it('identifies a complete row', function() {
+      var board = getNewBoard(3,3)
+      setCellValue(board, { col: 0, row: 1 }, 1)
+      setCellValue(board, { col: 1, row: 1 }, 1)
+      setCellValue(board, { col: 2, row: 1 }, 1)
+      setCellValue(board, { col: 0, row: 0 }, 1)
+      setCellValue(board, { col: 1, row: 0 }, 1)
+      setCellValue(board, { col: 2, row: 0 }, 1)
+      
+      expect(getFirstCompleteRowFromBottom(board)).to.eq(1)
+    })
   
+    it('identifies no complete row', function() {
+      var board = getNewBoard(3,3)
+      expect(getFirstCompleteRowFromBottom(board)).to.eq(-1)
+    })
   
     it('allows to move item when possible', function() {
       var squareItem = getNewItem('Square')
