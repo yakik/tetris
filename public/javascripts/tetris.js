@@ -3,7 +3,7 @@ import {
     getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, getBoardAfterItemCWRotation,
     getBoardAfterItemCCWRotation, isAllowedToRotateCW, isAllowedToRotateCCW
 } from "./board.js"
-import { redraw, setBoardDimensions, drawBoard } from "./boardDrawer.js"
+import { redraw, drawBoard } from "./boardDrawer.js"
 import { getBoardCurrentInterval, setBoard, updateBoard, getBoard } from "./gameBoard.js"
 import { getNewItem } from "./item.js"
 
@@ -47,12 +47,10 @@ export function keyWasPressed(e) {
     }
 }
 
-export function tetris(document, myBoardConfig, myStartCol, myGetNextItem, myRunMode) {
+export function tetris(myBoardConfig, myStartCol, myGetNextItem, myRunMode) {
     runMode = myRunMode
     startCol = myStartCol
     getNextItem = myGetNextItem
-
-    setBoardDimensions(myBoardConfig.boardWidth, myBoardConfig.boardHeight)
 
     setBoard(getNewBoard(myBoardConfig.boardColumns, myBoardConfig.boardRows))
     drawBoard(myBoardConfig.boardRows, myBoardConfig.boardColumns, getBoard())
