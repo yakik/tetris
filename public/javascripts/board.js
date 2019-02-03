@@ -1,8 +1,8 @@
 
-import { getDuplicateItem, getCoordinatesWithOffset, getItemCWRotated,getItemCCWRotated } from "./item.js"
+import { getDuplicateItem, getCoordinatesWithOffset, getItemCWRotated, getItemCCWRotated } from "./item.js"
 
 
-export function isAllowedToRotateCW(board){
+export function isAllowedToRotateCW(board) {
     var newBoard = getBoardAfterRemovingItem(board)
     var itemLocationOnBoard = {}
 
@@ -14,7 +14,7 @@ export function isAllowedToRotateCW(board){
     return canItemBePlacedOnBoard(newBoard, item, itemLocationOnBoard)
 }
 
-export function isAllowedToRotateCCW(board){
+export function isAllowedToRotateCCW(board) {
     var newBoard = getBoardAfterRemovingItem(board)
     var itemLocationOnBoard = {}
 
@@ -27,11 +27,11 @@ export function isAllowedToRotateCCW(board){
 }
 
 export function getBoardAfterItemCWRotation(board) {
-        var item = board.item
-        var itemLocationOnBoard = board.itemLocationOnBoard
-        var newBoard = getBoardAfterRemovingItem(board)
-        item = getItemCWRotated(item)
-        return getBoardWithItem(newBoard,item,itemLocationOnBoard)
+    var item = board.item
+    var itemLocationOnBoard = board.itemLocationOnBoard
+    var newBoard = getBoardAfterRemovingItem(board)
+    item = getItemCWRotated(item)
+    return getBoardWithItem(newBoard, item, itemLocationOnBoard)
 }
 
 
@@ -41,7 +41,7 @@ export function getBoardAfterItemCCWRotation(board) {
     var itemLocationOnBoard = board.itemLocationOnBoard
     var newBoard = getBoardAfterRemovingItem(board)
     item = getItemCCWRotated(item)
-    return getBoardWithItem(newBoard,item,itemLocationOnBoard)
+    return getBoardWithItem(newBoard, item, itemLocationOnBoard)
 }
 
 export function canItemBePlacedOnBoard(board, item, itemLocationOnBoard) {
@@ -87,7 +87,7 @@ export function getBoardWithItem(board, item, itemLocationOnBoard) {
 }
 
 export function getFirstCompleteRowFromBottom(board) {
-    for (var rowIndex = board.rows - 1; rowIndex >= 0; rowIndex--){
+    for (var rowIndex = board.rows - 1; rowIndex >= 0; rowIndex--) {
         var isComplete = true
         for (var colIndex = 0; colIndex < board.cols; colIndex++)
             if (getCellValue(board, { col: colIndex, row: rowIndex }) == 0)
@@ -97,6 +97,17 @@ export function getFirstCompleteRowFromBottom(board) {
     }
     return -1
 }
+
+export function getBoardWithoutRow(board, row) {
+    var newBoard = getDuplicateBoard(board)
+    for (var rowIndex = row; rowIndex > 0; rowIndex--)
+        for (var colIndex = 0; colIndex < board.cols; colIndex++)
+            setCellValue(newBoard, { col: colIndex, row: rowIndex }, getCellValue(board, { col: colIndex, row: rowIndex - 1 }))
+    for (var colIndex = 0; colIndex < board.cols; colIndex++)
+        setCellValue(newBoard, { col: colIndex, row: 0 }, 0)
+    return newBoard
+}
+
 
 
 export function getBoardAfterMovingItem(board, offest) {
@@ -115,10 +126,10 @@ export function isAllowedToMove(board, offest) {
     itemLocationOnBoard.col = board.itemLocationOnBoard.col + offest.col
     itemLocationOnBoard.row = board.itemLocationOnBoard.row + offest.row
     var newBoard = getBoardAfterRemovingItem(board)
-  
-    
 
-    
+
+
+
     return canItemBePlacedOnBoard(newBoard, item, itemLocationOnBoard)
 
 }
@@ -159,7 +170,7 @@ export function getNewBoard(cols, rows) {
 export function copyBoard(fromBoard, toBoard) {
     for (var i = 0; i < fromBoard.cols; i++)
         for (var j = 0; j < fromBoard.rows; j++)
-            setCellValue(toBoard, { col: i, row: j }, getCellValue(fromBoard,{ col: i, row: j }))
+            setCellValue(toBoard, { col: i, row: j }, getCellValue(fromBoard, { col: i, row: j }))
     toBoard.item = fromBoard.item
     toBoard.itemLocationOnBoard = fromBoard.itemLocationOnBoard
 }

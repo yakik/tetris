@@ -1,6 +1,6 @@
 import {
   getBoardAfterMovingItem, isAllowedToMove, setCellValue, getNewBoard, getFirstCompleteRowFromBottom,
-  getCellValue, getBoardWithItem, canItemBePlacedOnBoard, isAllowedToRotateCW, isAllowedToRotateCCW
+  getCellValue, getBoardWithItem, canItemBePlacedOnBoard, isAllowedToRotateCW, isAllowedToRotateCCW, getBoardWithoutRow
 } from "../../public/javascripts/board"
 import { getNewItem } from "../../public/javascripts/item"
 
@@ -75,6 +75,29 @@ describe('board tests', function () {
       expect(getFirstCompleteRowFromBottom(board)).to.eq(1)
     })
   
+    it('removes a row', function() {
+      var board = getNewBoard(3,3)
+      setCellValue(board, { col: 0, row: 1 }, 1)
+      setCellValue(board, { col: 1, row: 1 }, 1)
+      setCellValue(board, { col: 2, row: 1 }, 1)
+      setCellValue(board, { col: 0, row: 0 }, 1)
+      setCellValue(board, { col: 1, row: 0 }, 1)
+      setCellValue(board, { col: 2, row: 0 }, 1)
+
+      var newBoard = getBoardWithoutRow(board,1)
+      
+      expect(getCellValue(newBoard,{col:0,row:0})).to.eq(0)
+      expect(getCellValue(newBoard,{col:1,row:0})).to.eq(0)
+      expect(getCellValue(newBoard,{col:2,row:0})).to.eq(0)
+      expect(getCellValue(newBoard,{col:0,row:1})).to.eq(1)
+      expect(getCellValue(newBoard,{col:1,row:1})).to.eq(1)
+      expect(getCellValue(newBoard,{col:2,row:1})).to.eq(1)
+      expect(getCellValue(newBoard,{col:0,row:2})).to.eq(0)
+      expect(getCellValue(newBoard,{col:1,row:2})).to.eq(0)
+      expect(getCellValue(newBoard,{col:2,row:2})).to.eq(0)
+    })
+
+  
     it('identifies no complete row', function() {
       var board = getNewBoard(3,3)
       expect(getFirstCompleteRowFromBottom(board)).to.eq(-1)
@@ -85,7 +108,7 @@ describe('board tests', function () {
       var board = getNewBoard(3,3)
       var newBoard = getBoardWithItem(board, squareItem, { col: 0, row: 0 })
       
-      expect(isAllowedToMove(newBoard, { col: 1, row: 0 })).to.be.true
+      expect(isAllowedToMove(newBoard, { col: 1, row: 1 })).to.be.true
       
     })
   

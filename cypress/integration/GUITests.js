@@ -44,16 +44,15 @@ describe('GUI tests', function () {
             rotateItemCW(win, 1)
             dropItemDown(win);
 
-            // console.log()
+            introduceNextItem(win, 'Square');
 
-
-            assertCellBackgroundColor('#myTD_18_0', 'yellow'); 
-            assertCellBackgroundColor('#myTD_18_2', 'red');  
-            assertCellBackgroundColor('#myTD_18_6', 'blue');
-            assertCellBackgroundColor('#myTD_18_11', 'green');
-            assertCellBackgroundColor('#myTD_18_10', 'grey');
-            assertCellBackgroundColor('#myTD_18_9', 'purple');
-            assertCellBackgroundColor('#myTD_18_7','orange');
+            assertCellBackgroundColor('#myTD_19_0', 'yellow'); 
+            assertCellBackgroundColor('#myTD_19_2', 'red');  
+            assertCellBackgroundColor('#myTD_19_6', 'blue');
+            assertCellBackgroundColor('#myTD_19_11', 'green');
+            assertCellBackgroundColor('#myTD_19_10', 'grey');
+            assertCellBackgroundColor('#myTD_19_9', 'purple');
+            assertCellBackgroundColor('#myTD_19_7','orange');
             
         
           })

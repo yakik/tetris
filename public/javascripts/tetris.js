@@ -1,8 +1,6 @@
-import {
-    canItemBePlacedOnBoard,
+import { canItemBePlacedOnBoard,getFirstCompleteRowFromBottom,getBoardWithoutRow,
     getNewBoard, getBoardWithItem, isAllowedToMove, getBoardAfterMovingItem, getBoardAfterItemCWRotation,
-    getBoardAfterItemCCWRotation, isAllowedToRotateCW, isAllowedToRotateCCW
-} from "./board.js"
+    getBoardAfterItemCCWRotation, isAllowedToRotateCW, isAllowedToRotateCCW} from "./board.js"
 import { redraw, drawBoard } from "./boardDrawer.js"
 import { getBoardCurrentInterval, setBoard, updateBoard, getBoard } from "./gameBoard.js"
 import { getNewItem } from "./item.js"
@@ -10,12 +8,30 @@ import { getNewItem } from "./item.js"
 
 var nextTimedEvent, startCol, runMode, getNextItem
 
+
+
+export function tetris(myBoardConfig, myStartCol, myGetNextItem, myRunMode) {
+    runMode = myRunMode
+    startCol = myStartCol
+    getNextItem = myGetNextItem
+
+    setBoard(getNewBoard(myBoardConfig.boardColumns, myBoardConfig.boardRows))
+    drawBoard(myBoardConfig.boardRows, myBoardConfig.boardColumns, getBoard())
+    window.onkeypress = keyWasPressed
+    
+    if (runMode === "prod") {
+        addNewItem(getNextItem());
+        nextTimedEvent = setTimeout(moveDownOneAfterInterval, getBoardCurrentInterval())
+    }
+}
+
 function updateBoardAndRedraw(fromBoard) {
     updateBoard(fromBoard)
     redraw(getBoard())
 }
 
 export function keyWasPressed(e) {
+    
     switch (e.key) {
         case 'j':
             if (isAllowedToMove(getBoard(), { col: -1, row: 0 }))
@@ -47,24 +63,14 @@ export function keyWasPressed(e) {
     }
 }
 
-export function tetris(myBoardConfig, myStartCol, myGetNextItem, myRunMode) {
-    runMode = myRunMode
-    startCol = myStartCol
-    getNextItem = myGetNextItem
-
-    setBoard(getNewBoard(myBoardConfig.boardColumns, myBoardConfig.boardRows))
-    drawBoard(myBoardConfig.boardRows, myBoardConfig.boardColumns, getBoard())
-    window.onkeypress = keyWasPressed
-    
-    if (runMode === "prod") {
-        addNewItem(getNextItem());
-        nextTimedEvent = setTimeout(moveDownOneAfterInterval, getBoardCurrentInterval())
-    }
-}
-
 function addNewItem(newItem) {
-    if (canItemBePlacedOnBoard(getBoard(), newItem, { col: startCol, row: 0 }))
+    var removed
+    if (canItemBePlacedOnBoard(getBoard(), newItem, { col: startCol, row: 0 })) {
+        while ((removed = getFirstCompleteRowFromBottom(getBoard())) > -1)
+        updateBoardAndRedraw(getBoardWithoutRow(getBoard(),removed))
+
         updateBoardAndRedraw(getBoardWithItem(getBoard(), newItem, { col: startCol, row: 0 }))
+    }
     else
         alert("game over.")
 }
